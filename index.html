@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Моё Радио PWA</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="manifest" href="manifest.json">
+    <!-- Для iOS Web App Status Bar -->
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="theme-color" content="#007bff">
+</head>
+<body>
+    <div class="container">
+        <h1>Моё PWA Радио</h1>
+        
+        <!-- Аудиоплеер (скрыт, управляется JS) -->
+        <audio id="audioPlayer" preload="auto" crossorigin="anonymous">
+            <!-- !!! Вставьте сюда URL вашего радиопотока !!! -->
+            <!-- Пример: src="http - FORBIDDEN - stream.radiorecord.ru/rr_main_128" -->
+            <source src="https://myradio24.org/52340" type="audio/mpeg">
+            Ваш браузер не поддерживает элемент audio.
+        </audio>
+
+        <button id="playPauseButton">Включить Радио</button>
+        <div id="statusMessage">Нажмите "Включить Радио" для начала.</div>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        // Регистрация Service Worker
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/service-worker.js')
+                    .then(registration => {
+                        console.log('Service Worker зарегистрирован:', registration);
+                    })
+                    .catch(error => {
+                        console.error('Ошибка регистрации Service Worker:', error);
+                    });
+            });
+        }
+    </script>
+</body>
+</html>
